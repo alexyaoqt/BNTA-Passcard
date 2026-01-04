@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>门条</title>
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <style>
         body {
             padding-top: 50px;
@@ -16,6 +18,7 @@
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         }
 
+        /* 顶部导航栏 */
         .top-nav {
             position: fixed;
             top: 0;
@@ -32,32 +35,12 @@
             box-sizing: border-box;
         }
 
-        .nav-icon {
-            font-size: 24px;
-            color: #333;
-            width: 30px;
-        }
+        .nav-icon { font-size: 24px; color: #333; width: 30px; }
+        .nav-center { text-align: center; display: flex; flex-direction: column; justify-content: center; }
+        .nav-title { font-size: 16px; font-weight: bold; color: #000; line-height: 1.2; }
+        .nav-subtitle { font-size: 10px; color: #999; line-height: 1.2; }
 
-        .nav-center {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .nav-title {
-            font-size: 16px;
-            font-weight: bold;
-            color: #000;
-            line-height: 1.2;
-        }
-
-        .nav-subtitle {
-            font-size: 10px;
-            color: #999;
-            line-height: 1.2;
-        }
-
+        /* 顶部大图 */
         .bind-header {
             width: 100%;
             height: 232px;
@@ -67,19 +50,25 @@
             background-size: 100% 100%;
         }
 
-        #out-container {
-            padding: 10px 10px 20px 10px;
-        }
-
-        .ctrl {
-            text-align: center;
-            padding: 15px !important;
-        }
+        #out-container { padding: 10px 10px 20px 10px; }
+        .ctrl { text-align: center; padding: 15px !important; }
 
         .table {
             background-color: #fff;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             margin-bottom: 0;
+        }
+
+        /* 蓝色提示条样式修正：左对齐，直角 */
+        .notice-bar {
+            background-color: #5bc0de; /* 浅蓝色背景 */
+            color: white;
+            font-size: 100%;
+            display: block;
+            padding: 8px 10px; /* 左边加点边距 */
+            text-align: left; /* 左对齐 */
+            width: 100%;
+            border-radius: 0; /* 去掉圆角，变直角 */
         }
 
         .label-danger {
@@ -115,8 +104,8 @@
     <table class="table table-striped table-bordered table-hover table-condensed">
         <thead>
         <tr>
-            <th colspan="2">
-                <span class="label label-info" style="font-size: 100%; display: block; padding: 8px;">注意:门卫点击下面按钮可准许学生外出</span>
+            <th colspan="2" style="padding: 0; border: none;">
+                <div class="notice-bar">注意:门卫点击下面按钮可准许学生外出</div>
             </th>
         </tr>
         </thead>
@@ -161,30 +150,22 @@
 
 <script>
     $(function () {
-        // 1. 日期逻辑
         var now = new Date();
         var year = now.getFullYear();
         var month = (now.getMonth() + 1).toString().padStart(2, '0');
         var day = now.getDate().toString().padStart(2, '0');
         $('#current-date').text(year + '-' + month + '-' + day);
 
-        // 2. 名字逻辑 (只改顶部标题)
         var savedName = sessionStorage.getItem('mySavedName');
         if (!savedName) { savedName = "测试用户"; }
         $('#nav-title-text').text(savedName + '门条');
 
-        // 3. 【新增】性别和年级逻辑
         var savedGender = sessionStorage.getItem('mySavedGender');
         var savedGrade = sessionStorage.getItem('mySavedGrade');
-
-        // 如果没数据(比如直接打开页面二)，给个默认值防止空白
         if (!savedGender) savedGender = "男";
         if (!savedGrade) savedGrade = "11年级";
-
-        // 拼接字符串： "男, 11年级"
         $('#student-info-cell').text(savedGender + ', ' + savedGrade);
 
-        // 4. 跳转逻辑
         $('.action-pass-out').on('click', function () {
             window.location.href = 'end.html';
         });

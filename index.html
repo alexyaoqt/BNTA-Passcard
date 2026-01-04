@@ -4,19 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>请输入信息</title>
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
     <style>
         body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f2f5; margin: 0; }
         .container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; width: 300px;}
 
-        /* 输入框样式 */
         input[type="text"] { padding: 10px; border: 1px solid #ddd; border-radius: 5px; width: 80%; margin-bottom: 20px; display: block; margin: 0 auto 20px auto; }
 
-        /* 选择题样式 */
         .choice-group { margin-bottom: 20px; text-align: left; padding-left: 20px; }
         .choice-label { font-weight: bold; display: block; margin-bottom: 5px; }
         label { margin-right: 15px; cursor: pointer; }
 
-        /* 按钮样式 */
         button { padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; width: 100%; font-size: 16px; }
         button:hover { background-color: #0056b3; }
     </style>
@@ -45,25 +44,18 @@
 
     <script>
         function startJourney() {
-            // 1. 获取名字
             var name = document.getElementById('nameInput').value;
             if (name.trim() === "") {
                 alert("请输入名字！");
                 return;
             }
-
-            // 2. 获取性别 (找到被选中的那个 radio)
             var gender = document.querySelector('input[name="gender"]:checked').value;
-
-            // 3. 获取年级
             var grade = document.querySelector('input[name="grade"]:checked').value;
 
-            // 4. 全部存入 SessionStorage
             sessionStorage.setItem('mySavedName', name);
             sessionStorage.setItem('mySavedGender', gender);
             sessionStorage.setItem('mySavedGrade', grade);
 
-            // 5. 跳转
             window.location.href = 'card.html';
         }
     </script>
