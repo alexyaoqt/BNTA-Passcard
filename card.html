@@ -9,16 +9,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
     
     <style>
-        /* 1. 基础布局：去掉body的padding，让背景图可以全宽 */
         body {
-            /* 留出顶部导航栏的高度 */
             padding-top: 50px;
             margin: 0;
             background-color: whitesmoke;
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         }
 
-        /* --- 模拟顶部导航栏 --- */
         .top-nav {
             position: fixed;
             top: 0;
@@ -61,22 +58,15 @@
             line-height: 1.2;
         }
 
-        /* --- 2. 顶部大图区域 (关键修改) --- */
         .bind-header {
             width: 100%;
-            /* 强制设置高度，确保图片能显示出来 */
             height: 232px;
-
-            /* 设置背景图片 */
             background-image: url('brand.jpg');
-
-            /* 让背景图铺满，不重复，位置居中 */
             background-repeat: no-repeat;
             background-position: center top;
             background-size: 100% 100%;
         }
 
-        /* 3. 内容区域单独加边距 */
         #out-container {
             padding: 10px 10px 20px 10px;
         }
@@ -133,11 +123,11 @@
         <tbody>
         <tr>
             <td style="width: 35%; vertical-align: middle;">学生姓名</td>
-            <td style="vertical-align: middle; font-weight: bold;" id="student-name-cell"></td>
+            <td style="vertical-align: middle; font-weight: bold;">[JQ210301]</td>
         </tr>
         <tr>
             <td style="vertical-align: middle;">学生信息</td>
-            <td style="vertical-align: middle;">男, 11年级</td>
+            <td style="vertical-align: middle;" id="student-info-cell"></td>
         </tr>
         <tr>
             <td style="vertical-align: middle;">准假老师</td>
@@ -171,20 +161,30 @@
 
 <script>
     $(function () {
-        // 日期
+        // 1. 日期逻辑
         var now = new Date();
         var year = now.getFullYear();
         var month = (now.getMonth() + 1).toString().padStart(2, '0');
         var day = now.getDate().toString().padStart(2, '0');
         $('#current-date').text(year + '-' + month + '-' + day);
 
-        // 名字
+        // 2. 名字逻辑 (只改顶部标题)
         var savedName = sessionStorage.getItem('mySavedName');
         if (!savedName) { savedName = "测试用户"; }
-        $('#student-name-cell').text(savedName + ' [JQ210301]');
         $('#nav-title-text').text(savedName + '门条');
 
-        // 跳转
+        // 3. 【新增】性别和年级逻辑
+        var savedGender = sessionStorage.getItem('mySavedGender');
+        var savedGrade = sessionStorage.getItem('mySavedGrade');
+
+        // 如果没数据(比如直接打开页面二)，给个默认值防止空白
+        if (!savedGender) savedGender = "男";
+        if (!savedGrade) savedGrade = "11年级";
+
+        // 拼接字符串： "男, 11年级"
+        $('#student-info-cell').text(savedGender + ', ' + savedGrade);
+
+        // 4. 跳转逻辑
         $('.action-pass-out').on('click', function () {
             window.location.href = 'end.html';
         });

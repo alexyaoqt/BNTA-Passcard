@@ -5,11 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>请输入信息</title>
     <style>
-        /* 这里写一点简单的样式让它不那么丑，你可以随意改 */
         body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f2f5; margin: 0; }
-        .container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
-        input { padding: 10px; border: 1px solid #ddd; border-radius: 5px; width: 200px; margin-bottom: 15px; display: block; margin: 0 auto 15px auto; }
-        button { padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; width: 300px;}
+
+        /* 输入框样式 */
+        input[type="text"] { padding: 10px; border: 1px solid #ddd; border-radius: 5px; width: 80%; margin-bottom: 20px; display: block; margin: 0 auto 20px auto; }
+
+        /* 选择题样式 */
+        .choice-group { margin-bottom: 20px; text-align: left; padding-left: 20px; }
+        .choice-label { font-weight: bold; display: block; margin-bottom: 5px; }
+        label { margin-right: 15px; cursor: pointer; }
+
+        /* 按钮样式 */
+        button { padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; width: 100%; font-size: 16px; }
         button:hover { background-color: #0056b3; }
     </style>
 </head>
@@ -17,27 +25,45 @@
 
     <div class="container">
         <h2>欢迎</h2>
-        <p>请输入您的姓名以继续：</p>
+        <p>请输入您的姓名：</p>
         <input type="text" id="nameInput" placeholder="输入名字...">
+
+        <div class="choice-group">
+            <span class="choice-label">性别：</span>
+            <label><input type="radio" name="gender" value="男" checked> 男</label>
+            <label><input type="radio" name="gender" value="女"> 女</label>
+        </div>
+
+        <div class="choice-group">
+            <span class="choice-label">年级：</span>
+            <label><input type="radio" name="grade" value="11年级" checked> 11年级</label>
+            <label><input type="radio" name="grade" value="12年级"> 12年级</label>
+        </div>
+
         <button onclick="startJourney()">生成卡片</button>
     </div>
 
     <script>
         function startJourney() {
-            // 1. 获取输入框的值
+            // 1. 获取名字
             var name = document.getElementById('nameInput').value;
-            
-            // 2. 简单的验证，防止空名字
             if (name.trim() === "") {
                 alert("请输入名字！");
                 return;
             }
 
-            // 3. 核心步骤：把名字存入浏览器的 SessionStorage
-            // 这样在下一个页面就能取出来了
-            sessionStorage.setItem('mySavedName', name);
+            // 2. 获取性别 (找到被选中的那个 radio)
+            var gender = document.querySelector('input[name="gender"]:checked').value;
 
-            // 4. 跳转到第二个页面 (假设文件名叫 card.html)
+            // 3. 获取年级
+            var grade = document.querySelector('input[name="grade"]:checked').value;
+
+            // 4. 全部存入 SessionStorage
+            sessionStorage.setItem('mySavedName', name);
+            sessionStorage.setItem('mySavedGender', gender);
+            sessionStorage.setItem('mySavedGrade', grade);
+
+            // 5. 跳转
             window.location.href = 'card.html';
         }
     </script>
