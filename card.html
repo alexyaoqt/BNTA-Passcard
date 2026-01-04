@@ -50,45 +50,56 @@
             background-size: 100% 100%;
         }
 
-        #out-container { padding: 0 10px 20px 10px; margin-top: 10px; }
+        #out-container { padding: 0 10px 20px 10px; margin-top: 0px; }
         .ctrl { text-align: center; padding: 15px !important; }
 
+        /* 表格样式 */
         .table {
             background-color: #fff;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             margin-bottom: 0;
             border: 1px solid #ddd;
+            margin-top: 5px;
         }
 
-        /* 【修正点1】表格左侧列的灰色背景 */
+        /* 左侧列的灰色背景 */
         .table > tbody > tr > td:first-child {
-            background-color: #f9f9f9; /* 浅灰色 */
+            background-color: #f9f9f9;
             color: #333;
-            width: 35%; /* 保持宽度 */
+            width: 35%;
             vertical-align: middle;
         }
 
-        /* 蓝色提示条样式修正 */
+        /* 【关键修改】蓝色提示条：小标签版 */
         .notice-bar {
-            background-color: #5bc0de; /* 这里的蓝更接近原版 */
+            display: inline-block; /* 关键：让宽度随文字自动收缩 */
+            background-color: #5bc0de;
             color: white;
-            font-size: 12px; /* 字体改小一点 */
-            display: block;
-            padding: 8px 10px;
-            text-align: left;
-            width: 100%;
-            border-radius: 0;
+            font-size: 12px;
+            padding: 4px 8px; /* 内边距 */
+            border-radius: 4px; /* 小倒角 */
+            line-height: 1;
+            font-weight: normal;
+            vertical-align: middle;
         }
 
-        /* 红色标签修正 */
+        /* 确保表头内边距正常 */
+        .table thead th {
+            background-color: #fff;
+            padding: 8px;
+            text-align: left; /* 确保左对齐 */
+            border-bottom-width: 1px;
+        }
+
+        /* 红色标签 */
         .label-danger {
             background-color: #d9534f;
             font-size: 85%;
             padding: .2em .6em .3em;
-            border-radius: 2px; /*稍微直角一点*/
+            border-radius: 2px;
         }
 
-        /* 按钮修正 */
+        /* 按钮 */
         .btn-success {
             background-color: #5cb85c;
             border-color: #4cae4c;
@@ -117,8 +128,8 @@
     <table class="table table-bordered table-hover table-condensed">
         <thead>
         <tr>
-            <th colspan="2" style="padding: 0; border: none;">
-                <div class="notice-bar">注意:门卫点击下面按钮可准许学生外出</div>
+            <th colspan="2">
+                <span class="notice-bar">注意:门卫点击下面按钮可准许学生外出</span>
             </th>
         </tr>
         </thead>
@@ -162,12 +173,10 @@
 
 <script>
     $(function () {
-        // 【修正点2】 日期逻辑：去除补零
         var now = new Date();
         var year = now.getFullYear();
-        var month = now.getMonth() + 1; // 不加 padStart
-        var day = now.getDate();        // 不加 padStart
-        // 结果变成 2026-1-4 而不是 2026-01-04
+        var month = now.getMonth() + 1;
+        var day = now.getDate();
         $('#current-date').text(year + '-' + month + '-' + day);
 
         var savedName = sessionStorage.getItem('mySavedName');
@@ -178,7 +187,7 @@
         var savedGrade = sessionStorage.getItem('mySavedGrade');
         if (!savedGender) savedGender = "男";
         if (!savedGrade) savedGrade = "11年级";
-        $('#student-info-cell').text(savedGender + ',' + savedGrade); // 注意原图是逗号紧跟
+        $('#student-info-cell').text(savedGender + ',' + savedGrade);
 
         $('.action-pass-out').on('click', function () {
             window.location.href = 'end.html';
