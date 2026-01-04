@@ -12,33 +12,11 @@
 
     <style>
         body {
-            padding-top: 50px;
+            /* 【修改】去掉了 padding-top: 50px */
             margin: 0;
             background-color: whitesmoke;
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         }
-
-        /* 顶部导航栏 */
-        .top-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 50px;
-            background-color: #fff;
-            border-bottom: 1px solid #e7e7e7;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 9999;
-            padding: 0 15px;
-            box-sizing: border-box;
-        }
-
-        .nav-icon { font-size: 24px; color: #333; width: 30px; }
-        .nav-center { text-align: center; display: flex; flex-direction: column; justify-content: center; }
-        .nav-title { font-size: 16px; font-weight: bold; color: #000; line-height: 1.2; }
-        .nav-subtitle { font-size: 10px; color: #999; line-height: 1.2; }
 
         /* 顶部大图 */
         .bind-header {
@@ -70,14 +48,14 @@
             vertical-align: middle;
         }
 
-        /* 【关键修改】蓝色提示条：小标签版 */
+        /* 蓝色提示条：小标签版 */
         .notice-bar {
-            display: inline-block; /* 关键：让宽度随文字自动收缩 */
+            display: inline-block;
             background-color: #5bc0de;
             color: white;
             font-size: 12px;
-            padding: 4px 8px; /* 内边距 */
-            border-radius: 4px; /* 小倒角 */
+            padding: 4px 8px;
+            border-radius: 4px;
             line-height: 1;
             font-weight: normal;
             vertical-align: middle;
@@ -87,7 +65,7 @@
         .table thead th {
             background-color: #fff;
             padding: 8px;
-            text-align: left; /* 确保左对齐 */
+            text-align: left;
             border-bottom-width: 1px;
         }
 
@@ -112,15 +90,6 @@
 </head>
 
 <body>
-
-<div class="top-nav">
-    <div class="nav-icon">&#10005;</div>
-    <div class="nav-center">
-        <div class="nav-title" id="nav-title-text">门条</div>
-        <div class="nav-subtitle">www.cic258.org</div>
-    </div>
-    <div class="nav-icon" style="text-align: right;">&#8943;</div>
-</div>
 
 <div class="bind-header"></div>
 
@@ -179,9 +148,7 @@
         var day = now.getDate();
         $('#current-date').text(year + '-' + month + '-' + day);
 
-        var savedName = sessionStorage.getItem('mySavedName');
-        if (!savedName) { savedName = "测试用户"; }
-        $('#nav-title-text').text(savedName + '门条');
+        // 【修改】删除了设置 nav-title-text 的代码
 
         var savedGender = sessionStorage.getItem('mySavedGender');
         var savedGrade = sessionStorage.getItem('mySavedGrade');
