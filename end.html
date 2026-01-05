@@ -4,21 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>门条</title>
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <title>门条</title> <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         body {
-            /* 【修改】去掉了 padding-top */
             margin: 0;
             background-color: whitesmoke;
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         }
 
-        /* 顶部大图 */
         .bind-header {
             width: 100%;
             height: 232px;
@@ -52,6 +49,16 @@
             border-radius: 4px;
         }
     </style>
+
+    <script>
+        // 尝试获取名字
+        var savedName = sessionStorage.getItem('mySavedName');
+        // 如果没获取到，就给个默认值
+        if (!savedName) { savedName = "测试用户"; }
+
+        // 修改网页标题 -> 这就是微信顶部显示的内容
+        document.title = savedName + "门条";
+    </script>
 </head>
 
 <body>
